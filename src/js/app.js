@@ -54,6 +54,8 @@ App = {
     }).then(function(candidatesCount) {
       var candidatesResults = $("#candidatesResults");
       candidatesResults.empty();
+      var candidateSelect = $("#candidatesSelect");
+      candidateSelect.empty();
 
       for (var i = 1; i <= candidatesCount; i++) {
         electionInstance.candidates(i).then(function(candidate) {
@@ -64,6 +66,12 @@ App = {
           // Render candidate Result
           var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
           candidatesResults.append(candidateTemplate);
+
+          var option = $("<option></option>");
+          option.val(id);
+          option.text(name);
+
+          candidateSelect.append(option);
         });
       }
 
@@ -95,4 +103,3 @@ $(function() {
   });
 });
 
-document.addEventListener('touchstart', handler, {capture: true});
